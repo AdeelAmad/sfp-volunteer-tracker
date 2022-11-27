@@ -1,0 +1,47 @@
+{% extends 'users/base.html' %}
+{% block head %}
+    <title>Individual Report</title>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2"><a href="{% url 'hours' %}" class="btn btn-primary">Return</a></div>
+            <div class="col"></div>
+            <div class="col-2"><a class="btn btn-secondary" href="{% url 'individual_report_printable' %}">Printable
+                Format</a>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-4"><b>Verified Hours Report For {{ user.first_name }} {{ user.last_name }}</b></div>
+            <div class="col-4"><b>Date Range: {{ start_date }} - {{ end_date }}</b></div>
+            <div class="col-4"><b>Total Hours: {{ total_hours }}</b></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <tr class="table-secondary">
+                        <td>Date</td>
+                        <td>Start Time</td>
+                        <td>End Time</td>
+                        <td>Hours</td>
+                        <td>Verified</td>
+                    </tr>
+                    {% for entry in entries %}
+                        <tr>
+                            <td>{{ entry.date }}</td>
+                            <td>{{ entry.start_time }}</td>
+                            <td>{{ entry.end_time }}</td>
+                            <td>{{ entry.hours }}</td>
+                            <td>{{ entry.verified }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+        <div class="row">
+            <small>Report generated on {{ now }}</small>
+            <small>© Adeel Dev 2020-2022</small>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'users/base.html' %}
+{% block head %}
+    <title>Staff - Day Report</title>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2"><a href="{% url 'day_report_request' %}" class="btn btn-primary">Return</a></div>
+            <div class="col"></div>
+            <div class="col-2"><a class="btn btn-secondary" href="{% url 'day_report_printable' %}?date={{ request.GET.date }}">Printable
+                Format</a>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-4"><b>Volunteer report for {{ date }}</b></div>
+            <div class="col-4"><b>{{ total_hours }} man hours volunteered</b></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <tr class="table-secondary">
+                        <td>Name</td>
+                        <td>Start Time</td>
+                        <td>End Time</td>
+                        <td>Hours</td>
+                        <td>Verified</td>
+                    </tr>
+                    {% for entry in entries %}
+                        <tr>
+                            <td>{{ entry.name }}</td>
+                            <td>{{ entry.start_time }}</td>
+                            <td>{{ entry.end_time }}</td>
+                            <td>{{ entry.hours }}</td>
+                            <td>{{ entry.verified }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <small>Report generated on {{ now }}</small>
+            <small>© Adeel Dev 2020-2022</small>
+        </div>
+    </div>
+{% endblock %}

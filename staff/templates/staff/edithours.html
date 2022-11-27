@@ -1,0 +1,76 @@
+{% extends "staff/base.html" %}
+{% block head %}
+    <title>Staff - Edit Record</title>
+{% endblock %}
+{% block content %}
+
+    <div class="row px-1 px-md-4">
+        <div class="col-2">
+            <nav class="nav flex-column nav-pills">
+                <a class="nav-link" href="{% url 'staff_dash' %}">Dashboard</a>
+                <a class="nav-link" href="{% url 'review' %}">Review Hours</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'volunteers' %}">Records</a>
+                <a class="nav-link" href="{% url 'day_report_request' %}">Reports</a>
+            </nav>
+        </div>
+        <div class="col">
+
+            <form method="POST" enctype="multipart/form-data" class="container">
+                {% csrf_token %}
+                <fieldset class="form-group mb-4">
+                    <legend class="mb-4">Update record</legend>
+
+                    <div id="div_id_date" class="control-group form-group row">
+                        <label for="id_date"
+                               class="control-label requiredField col-sm-2 col-form-label">Date:<span
+                                class="asteriskField"></span></label>
+                        <div class="controls col-sm-10">
+                            <input type="date" name="date" value="{{ object.date|date:'Y-m-d' }}" class="form-control"
+                                   required=""
+                                   id="id_date">
+                        </div>
+                    </div>
+
+                    <div id="div_id_start" class="control-group form-group row">
+                        <label for="id_start"
+                               class="control-label requiredField col-sm-2 col-form-label">Start Time:<span
+                                class="asteriskField"></span></label>
+                        <div class="controls col-sm-10">
+                            <input type="time" name="start" value="{{ object.start|time:'H:i' }}"
+                                   class="form-control"
+                                   class="form-control" required="" id="id_start">
+                        </div>
+                    </div>
+
+                    <div id="div_id_end" class="control-group form-group row">
+                        <label for="id_end"
+                               class="control-label requiredField col-sm-2 col-form-label">End Time:<span
+                                class="asteriskField"></span> </label>
+                        <div class="controls col-sm-10">
+                            <input type="time" name="end" value="{{ object.end|time:'H:i' }}" maxlength="150"
+                                   class="form-control" required="" id="id_end">
+                        </div>
+                    </div>
+
+                    <div id="div_id_verified" class="control-group form-group row">
+                        <label for="id_verified"
+                               class="control-label requiredField col-sm-2 col-form-label">Verified:<span
+                                class="asteriskField"></span></label>
+                        <div class="controls col-sm-10">
+                            <input type="checkbox" name="verified" value="{{ object.verified }}"
+                                   class="form-control form-check-input" id="id_verified"
+                                    {% if object.verified %}
+                                   checked
+                                    {% endif %}>
+                        </div>
+                    </div>
+
+                </fieldset>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary mb-4">Update</button>
+                    <a href="{% url 'deletehours' object.id %}" class="btn btn-danger mb-4">Delete</a></a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,92 @@
+{% extends "users/base.html" %}
+
+{% block head %}
+    <title>Hours</title>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'hours' %}">Hours</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' %}">Settings</a>
+                </li>
+                {% if perms.tracker.add_volunteer_hour %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'staff_dash' %}">Admin</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="card-body">
+
+            <div class="container-fluid">
+                <div class="content-section">
+
+
+                    <div class="container">
+                        <div class="row px-1 px-md-4">
+                            <div class="col-md-12">
+                                <h1>Hours</h1>
+                                <p>Here you can see your total service hours. To generate a document stating with all your verified hours, please click <a href="{% url 'individual_report' %}">here</a>.</p>
+                            </div>
+                        </div>
+                        <div class="row px-1 px-md-4">
+                            <div class="col-md-12">
+                                <p>You currently have <b>
+                                    {% if hours %}
+                                        {{ verified_hours }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
+                                </b> verified hours</p>
+                            </div>
+                        </div>
+                        <div class="row px-1 px-md-4">
+                            <div class="col-md-12">
+                                <a href="{% url 'create_hour' %}">
+                                    <button class="btn btn-success mb-3">Log Hours</button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row px-1 px-md-4">
+                            <div class="card col p">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Start Time</th>
+                                        <th scope="col">End Time</th>
+                                        <th scope="col">Total Time</th>
+                                        <th scope="col">Verified</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for h in hours %}
+                                        <tr>
+                                            <td>{{ h.date }}</td>
+                                            <td>{{ h.start }}</td>
+                                            <td>{{ h.end }}</td>
+                                            <td>{{ h.total }}</td>
+                                            <td>{{ h.verified }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

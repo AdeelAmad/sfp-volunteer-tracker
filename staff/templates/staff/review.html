@@ -1,0 +1,52 @@
+{% extends "staff/base.html" %}
+{% block head %}
+    <title>Staff - Review Hours</title>
+{% endblock %}
+{% block content %}
+    <div class="row px-1 px-md-4">
+        <div class="col-md-12">
+            <h1>Review Hours</h1>
+        </div>
+    </div>
+    <div class="row px-1 px-md-4">
+        <div class="col-2">
+            <nav class="nav flex-column nav-pills">
+                <a class="nav-link" href="{% url 'staff_dash' %}">Dashboard</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'review' %}">Review Hours</a>
+                <a class="nav-link" href="{% url 'volunteers' %}">Records</a>
+                <a class="nav-link" href="{% url 'day_report_request' %}">Reports</a>
+            </nav>
+        </div>
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col">End Time</th>
+                    <th scope="col">Total Time</th>
+                    <th scope="col">Accept/Deny</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for h in hours %}
+                    <tr>
+                        <td>{{ h.name }}</td>
+                        <td>{{ h.date }}</td>
+                        <td>{{ h.start }}</td>
+                        <td>{{ h.end }}</td>
+                        <td>{{ h.total }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-success" href="{% url 'approvehour' h.id %}">Accept</a>
+                                <a class="btn btn-danger" href="{% url 'deletehours' h.id %}">Deny</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

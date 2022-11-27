@@ -1,0 +1,25 @@
+{% extends "staff/base.html" %}
+{% block head %}
+    <title>Staff - Dashboard</title>
+{% endblock %}
+
+{% block content %}
+    <div class="row px-1 px-md-4">
+        <div class="col-md-12">
+            <h1>Admin Dashboard</h1>
+        </div>
+    </div>
+    <div class="row px-1 px-md-4">
+        <div class="col-2">
+            <nav class="nav flex-column nav-pills">
+                <a class="nav-link active" aria-current="page" href="{% url 'staff_dash' %}">Dashboard</a>
+                <a class="nav-link" href="{% url 'review' %}">Review Hours</a>
+                <a class="nav-link" href="{% url 'volunteers'%}">Records</a>
+                <a class="nav-link" href="{% url 'day_report_request' %}">Reports</a>
+            </nav>
+        </div>
+        <div class="col">
+            <h4>Logged in as: {{ user.first_name }}</h4>
+        </div>
+    </div>
+{% endblock content %}

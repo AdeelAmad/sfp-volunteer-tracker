@@ -1,0 +1,100 @@
+{% extends "users/base.html" %}
+
+{% block head %}
+    <title>Profile</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'hours' %}">Hours</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Settings</a>
+                </li>
+                {% if perms.tracker.add_volunteer_hour %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'staff_dash' %}">Admin</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="card-body">
+
+            <div class="container-fluid">
+                <div class="content-section">
+
+                    <!--                Profile Basic Info-->
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="mb-4">Update Profile</legend>
+
+                            <div id="div_id_email" class="control-group form-group row">
+                                <label for="id_first_name"
+                                       class="control-label requiredField col-sm-2 col-form-label">First Name:<span
+                                        class="asteriskField"></span></label>
+                                <div class="controls col-sm-10">
+                                    <input type="text" name="first_name" value="{{ user.first_name }}"
+                                           class="textinput textInput form-control"
+                                           class="form-control" required="" id="id_first_name">
+                                    <small id="hint_id_first_name passwordHelpInline" class="help-block text-muted">Required.
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div id="div_id_email" class="control-group form-group row">
+                                <label for="id_last_name"
+                                       class="control-label requiredField col-sm-2 col-form-label">Last Name:<span
+                                        class="asteriskField"></span></label>
+                                <div class="controls col-sm-10">
+                                    <input type="text" name="last_name" value="{{ user.last_name }}"
+                                           class="textinput textInput form-control"
+                                           class="form-control" required="" id="id_last_name">
+                                    <small id="hint_id_last_name passwordHelpInline" class="help-block text-muted">Required.
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div id="div_id_username" class="control-group form-group row">
+                                <label for="id_username" class="control-label requiredField col-sm-2 col-form-label">Username:<span
+                                        class="asteriskField"></span> </label>
+                                <div class="controls col-sm-10">
+                                    <input type="text" name="username" value="{{ user.username }}" maxlength="150"
+                                           class="textinput textInput form-control" required="" id="id_username">
+                                    <small id="hint_id_username passwordHelpInline" class="help-block text-muted">Required.
+                                        150 characters or fewer. Letters, digits and @/./+/-/_ only.
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div id="div_id_email" class="control-group form-group row">
+                                <label for="id_email"
+                                       class="control-label requiredField col-sm-2 col-form-label">Email:<span
+                                        class="asteriskField"></span></label>
+                                <div class="controls col-sm-10">
+                                    <input type="email" name="email" value="{{ user.email }}"
+                                           class="emailinput form-control" required="" id="id_email">
+                                    <small id="hint_id_username passwordHelpInline" class="help-block text-muted">Required.
+                                    </small>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary mb-4">Update</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock content %}
