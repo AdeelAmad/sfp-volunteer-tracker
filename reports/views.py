@@ -54,7 +54,7 @@ def individual_report_printable(request):
     return render(request, template_name='reports/individual_report_printable.html', context=context)
 
 
-@permission_required('tracker.can_view_all_hours', raise_exception=True)
+@permission_required('tracker.add_volunteer_hour', raise_exception=True)
 def day_report_request(request):
     context = {}
     total_hours = 0
@@ -77,7 +77,7 @@ def day_report_request(request):
     return render(request, template_name='reports/day_report_request.html', context=context)
 
 
-@permission_required('tracker.can_view_all_hours',  raise_exception=True)
+@permission_required('tracker.add_volunteer_hour',  raise_exception=True)
 def day_report(request):
     context = {}
     context['entries'] = []
@@ -114,7 +114,7 @@ def day_report(request):
 
     return render(request, template_name='reports/day_report.html', context=context)
 
-@login_required
+@permission_required('tracker.add_volunteer_hour', raise_exception=True)
 def day_report_printable(request):
     context = {}
     context['entries'] = []
