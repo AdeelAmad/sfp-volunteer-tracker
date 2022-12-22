@@ -87,14 +87,8 @@
     <div class="form-group">
 
         <div class="input-group">
-            <input class="form-control rounded" id="id_username" maxlength="30" name="username" type="text"
-                   placeholder="Username"/>
-        </div>
-
-
-        <div class="input-group">
-            <input class="form-control rounded" id="id_password" maxlength="30" name="password" type="password"
-                   placeholder="Password"/>
+            <input class="form-control rounded" id="id_card_id" maxlength="30" name="card_id" type="password"
+                   placeholder="Card ID"/>
         </div>
         <div class="d-grid gap-2">
             <input type="submit" class="btn btn-lg btn-primary" value="Sign in"/>
@@ -102,16 +96,16 @@
 
         <span style="color: red;">
         {% if form.errors %}
-            <p>Please enter a correct username and password. Note that password is case-sensitive.</p>
+            <p>The ID doesn't match any in the system</p>
         {% endif %}
         </span>
 
         <input type="hidden" name="next" value="{{ next }}"/>
 
 
-        <p class="h6 font-weight-normal" style="padding-top: 5px;">Need an account? <a href="{% url 'register' %}">Sign
-            Up</a></p>
-        <p class="h6 font-weight-normal" style="padding-top: 5px;">Forgot password? <a href="{% url 'password_reset' %}">Reset</a></p>
+{#        <p class="h6 font-weight-normal" style="padding-top: 5px;">Need an account? <a href="{% url 'register' %}">Sign#}
+{#            Up</a></p>#}
+{#        <p class="h6 font-weight-normal" style="padding-top: 5px;">Forgot password? <a href="{% url 'password_reset' %}">Reset</a></p>#}
 
         <p class="mt-5 mb-3 text-muted">{{ version }}</p>
     </div>

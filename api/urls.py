@@ -15,13 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .views import clock
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('users.urls')),
-    path('staff/', include('staff.urls')),
-    path('hours/', include('tracker.urls')),
-    path('reports/', include('reports.urls')),
-    path('api/', include('api.urls')),
-    path('', include('home.urls')),
+    path('clock/', clock, name='clock'),
 ]

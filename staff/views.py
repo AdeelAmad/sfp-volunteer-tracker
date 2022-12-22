@@ -22,6 +22,7 @@ class review(PermissionRequiredMixin, ListView):
     raise_exception = True
     template_name = 'staff/review.html'
     context_object_name = 'hours'
+    paginate_by = 10
 
     def get_queryset(self):
         resultList = []
@@ -31,8 +32,11 @@ class review(PermissionRequiredMixin, ListView):
             date = o.date
             start = o.start
             end = o.end
-            total = datetime.combine(date, o.end) - datetime.combine(date, o.start)
-            name = "{} {}".format(o.volunteer.first_name, o.volunteer.last_name)
+            try:
+                total = datetime.combine(date, o.end) - datetime.combine(date, o.start)
+            except:
+                total = "Null"
+            name = "{} {}".format(o.volunteer.user.first_name, o.volunteer.user.last_name)
 
             resultList.append({"name": name, "date": date,"start": start,"end": end,"total": total, "id": o.id})
 
@@ -41,9 +45,12 @@ class review(PermissionRequiredMixin, ListView):
 @permission_required('tracker.add_volunteer_hour', raise_exception=True)
 def approvehour(request, pk):
     hour = get_object_or_404(volunteer_hour, pk=pk)
-    hour.verified = True
-    hour.save()
-    messages.success(request, 'Hour Approved')
+    if hour.end is None:
+        messages.warning(request, 'You cannot approve an hour with no end time')
+    else:
+        hour.verified = True
+        hour.save()
+        messages.success(request, 'Hour Approved')
     return redirect(reverse_lazy('review'))
 
 @permission_required('tracker.add_volunteer_hour', raise_exception=True)
@@ -79,8 +86,11 @@ class allhours(PermissionRequiredMixin, ListView):
                 date = o.date
                 start = o.start
                 end = o.end
-                total = datetime.combine(date, o.end) - datetime.combine(date, o.start)
-                name = "{} {}".format(o.volunteer.first_name, o.volunteer.last_name)
+                try:
+                    total = datetime.combine(date, o.end) - datetime.combine(date, o.start)
+                except:
+                    total = "Null"
+                name = "{} {}".format(o.volunteer.user.first_name, o.volunteer.user.last_name)
 
                 resultList.append({"name": name, "date": date, "start": start, "end": end, "total": total, "id": o.id, "verified": o.verified})
 

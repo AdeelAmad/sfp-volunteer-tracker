@@ -19,18 +19,21 @@ def hours(request):
 
     verified_hours = dt.timedelta(0)
 
-    for o in volunteer_hour.objects.all().filter(volunteer=request.user, verified=True):
+    for o in volunteer_hour.objects.all().filter(volunteer=request.user.volunteer, verified=True):
         date = o.date
         hour = datetime.combine(date, o.end) - datetime.combine(date, o.start)
         verified_hours = verified_hours + hour
 
     context['verified_hours'] = verified_hours.seconds/3600
 
-    for o in volunteer_hour.objects.all().filter(volunteer=request.user).order_by('date'):
+    for o in volunteer_hour.objects.all().filter(volunteer=request.user.volunteer).order_by('date'):
         date = o.date
         start = o.start
         end = o.end
-        total = datetime.combine(date, o.end) - datetime.combine(date, o.start)
+        try:
+            total = datetime.combine(date, o.end) - datetime.combine(date, o.start)
+        except:
+            total = "Null"
         verified = o.verified
 
         context['hours'].append({"date": date, "start": start, "end": end, "total": total, "verified": verified})
@@ -44,6 +47,6 @@ class createHour(LoginRequiredMixin, CreateView):
     fields = ['date','start','end']
 
     def form_valid(self, form):
-        form.instance.volunteer = self.request.user
+        form.instance.volunteer = self.request.user.volunteer
         messages.add_message(self.request, messages.INFO, 'Hours have been logged. They will be verified soon.')
         return super().form_valid(form)
