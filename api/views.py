@@ -38,6 +38,8 @@ def clock(request):
                             "start": v.start,
                             "end": v.end,
                             "date": v.date,
+                            "first_name": v.volunteer.user.first_name,
+                            "last_name": v.volunteer.user.last_name,
                         }
 
                         return JsonResponse(data=response, status=200)
@@ -50,6 +52,8 @@ def clock(request):
                             "start": v.start,
                             "end": v.end,
                             "date": v.date,
+                            "first_name": v.volunteer.user.first_name,
+                            "last_name": v.volunteer.user.last_name,
                         }
 
                         return JsonResponse(data=response, status=200)
