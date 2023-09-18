@@ -137,12 +137,3 @@ VERSION_COPYRIGHT = 'Alpha 1.1 Adeel Dev © 2020-2022'
 
 SITE_NAME = "Demo"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-SENDGRID_API_KEY = "xPc3FKSOkg4bUdR2"
-
-EMAIL_HOST = 'smtp-relay.sendinblue.com'
-EMAIL_HOST_USER = 'theadeelahmad07@gmail.com'
-EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
